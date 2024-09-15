@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="expenseSplitterApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Splitter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="ExpenseController">
+    <div class="expense-splitter">
+        <h1>Expense Splitter Calculator</h1>
+        <form ng-submit="addExpense()">
+            <label for="description">Description:</label>
+            <input type="text" ng-model="newExpense.description" required>
+            
+            <label for="amount">Amount:</label>
+            <input type="number" ng-model="newExpense.amount" required>
+            
+            <label for="splitBy">Split By:</label>
+            <select ng-model="newExpense.splitBy" required>
+                <option value="equal">Equal</option>
+                <option value="custom">Custom</option>
+            </select>
+
+            <div class="div1" ng-show="newExpense.splitBy === 'custom'">
+                <label for="customSplit">Custom Split:</label>
+                <input type="text" ng-model="newExpense.customSplit" placeholder="Enter names separated by commas">
+            </div>
+
+            <button class="b1" type="submit">Add Expense</button>
+        </form>
+
+        <!-- ng-show="expenses.amount" -->
+        <div class="expenses-list">
+            <h2>Expenses</h2>
+            <ul>
+                <li id="li1" ng-repeat="expense in expenses">
+                    {{ expense.description }} - {{ expense.amount | currency }} ({{ expense.splitBy }})
+                    <button class="b2" ng-click="removeExpense($index)">Remove</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="summary">
+            <h2>Expense Summary</h2>
+            <ul>
+                <li ng-repeat="person in getPeople()">
+                    {{ person }} owes {{ calculateOwes(person) | currency }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br><br><br>
+    <script>
+        angular.module('expenseSplitterApp', [])
+        .controller('ExpenseController', function ($scope) {
+            $scope.expenses = [];
+            $scope.newExpense = { description: '', amount: 0, splitBy: 'equal', customSplit: '' };
+
+            $scope.addExpense = function () {
+                $scope.expenses.push(angular.copy($scope.newExpense));
+                $scope.newExpense = { description: '', amount: 0, splitBy: 'equal', customSplit: '' };
+            };
+
+            $scope.removeExpense = function (index) {
+                $scope.expenses.splice(index, 1);
+            };
+
+            $scope.getPeople = function () {
+                var people = [];
+                angular.forEach($scope.expenses, function (expense) {
+                    if (expense.splitBy === 'custom') {
+                        var names = expense.customSplit.split(',').map(function (name) {
+                            return name.trim();//removes whitespaces from array
+                        });
+                        people = people.concat(names);
+                    }
+                });
+                return Array.from(new Set(people));//Array.from() creates new array instance, new Set() stores keys. (array is returned)
+            };
+
+            $scope.calculateOwes = function (person) {
+                var totalOwes = 0;
+
+                angular.forEach($scope.expenses, function (expense) {
+                    if (expense.splitBy === 'equal') {
+                        totalOwes += expense.amount / $scope.getPeople().length;
+                    } else if (expense.splitBy === 'custom') {
+                        var names = expense.customSplit.split(',').map(function (name) {
+                            return name.trim();
+                        });
+
+                        if (names.indexOf(person) !== -1) {
+                            totalOwes += expense.amount / names.length;
+                        }
+                    }
+                });
+
+                return totalOwes;
+            };
+
+            
+        });
+    </script>
+</body>
+</html>

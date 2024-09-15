@@ -1,0 +1,48 @@
+<div class="calculator">
+
+            <h2>Expense Splitter</h2>
+            <label for="calculatorAmount">Total Amount:</label>
+            <input type="number" id="calculatorAmount" ng-model="calculatorAmount" required>
+            
+            <label for="calculatorPeople">Number of People:</label>
+            <input type="number" id="calculatorPeople" ng-model="calculatorPeople" required>
+            
+            <button ng-click="calculateEqualSplit()">Calculate Equal Split</button>
+            <button ng-click="calculateCustomSplit()">Calculate Custom Split</button>
+
+            <div class="cal" ng-show="calculatedSplit">
+                <h3>Calculated Split:</h3>
+                <ul>
+                    <li ng-repeat="person in getPeople()">
+                        {{ person }} owes {{ calculatedSplit[person] | currency }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        $scope.calculatorAmount = 0;
+            $scope.calculatorPeople = 1;
+            $scope.calculatedSplit = null;
+
+            // Calculator functions
+            $scope.calculateEqualSplit = function () {
+                if ($scope.calculatorAmount > 0 && $scope.calculatorPeople > 0) {
+                    var equalAmount = $scope.calculatorAmount / $scope.calculatorPeople;
+                    $scope.calculatedSplit = {};
+
+                    angular.forEach($scope.getPeople(), function (person) {
+                        $scope.calculatedSplit[person] = equalAmount;
+                    });
+                }
+            };
+
+            $scope.calculateCustomSplit = function () {
+                if ($scope.calculatorAmount > 0 && $scope.calculatorPeople > 0) {
+                    $scope.calculatedSplit = {};
+
+                    angular.forEach($scope.getPeople(), function (person) {
+                        var customAmount = parseFloat(prompt('Enter the amount for ' + person + ':') || 0);
+                        $scope.calculatedSplit[person] = customAmount || 0;
+                    });
+                }
+            };

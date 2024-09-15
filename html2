@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="expenseSplitterApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Splitter</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="ExpenseController as expenseCtrl">
+    <div class="expense-splitter">
+        <h1>Expense Splitter</h1>
+        <form ng-submit="expenseCtrl.addExpense()">
+            <label for="description">Description:</label>
+            <input type="text" ng-model="expenseCtrl.newExpense.description" required>
+            
+            <label for="amount">Amount:</label>
+            <input type="number" ng-model="expenseCtrl.newExpense.amount" required>
+            
+            <label for="splitBy">Split By:</label>
+            <select ng-model="expenseCtrl.newExpense.splitBy" required>
+                <option value="equal">Equal</option>
+                <option value="custom">Custom</option>
+            </select>
+
+            <div ng-show="expenseCtrl.newExpense.splitBy === 'custom'">
+                <label for="customSplit">Custom Split:</label>
+                <input type="text" ng-model="expenseCtrl.newExpense.customSplit" placeholder="Enter names separated by commas">
+            </div>
+
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <div class="expenses-list">
+            <h2>Expenses</h2>
+            <ul>
+                <li ng-repeat="expense in expenseCtrl.expenses">
+                    {{ expense.description }} - {{ expense.amount | currency }} ({{ expense.splitBy }})
+                    <button ng-click="expenseCtrl.removeExpense($index)">Remove</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="summary">
+            <h2>Expense Summary</h2>
+            <ul>
+                <li ng-repeat="person in expenseCtrl.getPeople()">
+                    {{ person }} owes {{ expenseCtrl.calculateOwes(person) | currency }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

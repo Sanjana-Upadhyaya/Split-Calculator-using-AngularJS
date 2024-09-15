@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #404040;
+    display: flex;
+    justify-content: center;/*flex container property*/
+    align-items: center;
+    height: auto;
+    margin: 50px auto;
+}
+
+.expense-splitter {
+    background-color:#fff;
+    border-radius: 10px;
+    text-align: center;
+    color: #000;
+    max-width: 600px;
+    max-height:fit-content;
+    margin:50px auto;
+}
+
+.expenses-list{
+    background-color: #fff;
+    margin: 10px,0,10px,0;
+}
+
+.summary{
+    background-color: #fff;
+    margin: 10px,0,10px,0;
+}
+
+.calculator{
+    margin: 10px,0,10px,0;
+
+}
+
+.cal{
+    background-color: #fff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-top: 10px;
+}
+
+.b1{
+    margin-top: 20px;
+    margin-left: 165px;
+    background-color: #000080;
+    width: 200px;
+    color: #fff;
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+li button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    
+}
+
+input{
+    width: 500px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+select{
+    width: 507.2px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
