@@ -13,7 +13,7 @@
   - CSS for styling the user interface.
 
   ## Screenshots
-  ![Homepage](screenshort/Screenshot2024-09-15213552.png)
+  ![Homepage](screenshort/homepage.png)
 
   # How to Run
 - Clone this repository:
