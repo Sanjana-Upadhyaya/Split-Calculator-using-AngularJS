@@ -1,19 +1,19 @@
 # Split Calculator
   A simple Expense Splitter calculator built using AngularJS. This application helps users split expenses between individuals either equally or custom, based on user-defined splits.
 
-  # Features
+  ## Features
   - Add expenses with descriptions and amounts.
   - Choose between splitting expenses equally or by custom names.
   - Remove individual expenses.
   - Display summary of how much each person owes.
 
-  # Technologies Used
+  ## Technologies Used
   - AngularJS for dynamic content binding.
   - HTML5 for the structure of the application.
   - CSS for styling the user interface.
 
-  # Screenshots
-
+  ## Screenshots
+  ![Homepage](screenshot/sc_homeheader.png)
 
   # How to Run
 - Clone this repository:
