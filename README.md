@@ -17,10 +17,10 @@
 
   # How to Run
 - Clone this repository:
-bash
+```bash
 git clone https://github.com/your-username/split-calculator.git
 - Navigate into the project directory:
-bash
+```bash
 cd split-calculator
 - Open the index.html file in your preferred browser.
 
